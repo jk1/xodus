@@ -32,7 +32,7 @@
  * limitations under the License.
  */
 
-println("Welcome to Xodus EntityStores JS console. Type '/?' for help, 'exit' to exit.")
+println("Welcome to Xodus EntityStores JS console. Type '/?' for help, 'exit' to exit.");
 
 function help() {
     println('help, /?, ?                                        - print this help');
@@ -73,7 +73,7 @@ function all(type) {
 
 function find(type, propertyName, propertyValue, maxValue) {
     if (!assertStoreIsOpen()) return;
-    if (maxValue == undefined) {
+    if (maxValue === undefined) {
         return txn.find(type, propertyName, propertyValue);
     }
     return txn.find(type, propertyName, propertyValue, maxValue);
@@ -95,7 +95,7 @@ function create(type, props, flush) {
             }
         }
     }
-    if (flush || flush == undefined) {
+    if (flush || flush === undefined) {
         txn.flush();
     }
     return entity
@@ -104,7 +104,7 @@ function create(type, props, flush) {
 
 function entity(id) {
     if (!assertStoreIsOpen()) return;
-    if (id == undefined) {
+    if (id === undefined) {
         println("Entity id is expected");
         return;
     }

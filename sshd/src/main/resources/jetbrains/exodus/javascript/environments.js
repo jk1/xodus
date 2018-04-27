@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-println("Welcome to Xodus Environment JS console. Type '/?' for help, 'exit' to exit.")
+println("Welcome to Xodus Environment JS console. Type '/?' for help, 'exit' to exit.");
 
 var environments = Packages.jetbrains.exodus.env;
 
@@ -46,7 +46,7 @@ function assertEnvIsOpen() {
 }
 
 function gc(on) {
-    interop.gc(on)
+    interop.gc(on);
 }
 
 function get(storeName, key) {

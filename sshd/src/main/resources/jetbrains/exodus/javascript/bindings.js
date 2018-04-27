@@ -17,7 +17,7 @@ var bindings = Packages.jetbrains.exodus.bindings;
 var stringBinding = bindings.StringBinding;
 var integerBinding = bindings.IntegerBinding;
 var longBinding = bindings.LongBinding;
-var doubleBinding = bindings.DoubleBinding
+var doubleBinding = bindings.DoubleBinding;
 
 function stringToEntry(s) {
     return stringBinding.stringToEntry(s);

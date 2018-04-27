@@ -16,6 +16,7 @@
 package jetbrains.exodus.javascript
 
 object ScriptPreprocessor {
+    private val quotes = arrayListOf('\'', '"')
 
     fun preprocess(cmd: () -> String): String {
         var result = cmd().trim()
@@ -49,6 +50,20 @@ object ScriptPreprocessor {
         }
     }
 
+    private val trySurroundWithQuotes: (String) -> String = {
+        buildString {
+            val spaceIdx = it.indexOf(' ')
+            append(it, 0, spaceIdx + 1)
+            if (!quotes.contains(it[spaceIdx + 1])) {
+                append("'")
+                append(it, spaceIdx + 1, it.length)
+                append("'")
+            } else {
+                append(it, spaceIdx + 1, it.length)
+            }
+        }
+    }
+
     private val spacesToCommas: (String) -> String = { it.replace(' ', ',') }
 
     private val insertQuotes: (String) -> String = {
@@ -76,12 +91,12 @@ object ScriptPreprocessor {
             "help" to arrayOf({ cmd -> "help()" }),
             "print " to arrayOf(surroundWithBrackets),
             "println " to arrayOf(surroundWithBrackets),
-            "load " to arrayOf(surroundWithBrackets, insertQuotes),
+            "load " to arrayOf(trySurroundWithQuotes, surroundWithBrackets, insertQuotes),
             "gc " to arrayOf(surroundWithBrackets),
             "gc(on)" to arrayOf({ cmd -> "gc(true)" }),
             "gc(off)" to arrayOf({ cmd -> "gc(false)" }),
             "gc" to arrayOf({ cmd -> "gc()" }),
-            "open " to arrayOf(surroundWithBrackets, spacesToCommas),
+            "open " to arrayOf(trySurroundWithQuotes, surroundWithBrackets, spacesToCommas),
             "get " to arrayOf(surroundWithBrackets, spacesToCommas),
             "put " to arrayOf(surroundWithBrackets, spacesToCommas),
             "delete " to arrayOf(surroundWithBrackets, spacesToCommas),
